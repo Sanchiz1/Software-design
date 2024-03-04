@@ -1,7 +1,7 @@
 ﻿using Domain.Common;
 using Domain.ValueObjects;
 
-namespace Domain.Entities;
+namespace Domain.Entities.ProductAggregate;
 
 public class Product : BaseEntity<int>
 {

@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.WareHouseAggregate;
 
 namespace Domain.Interfaces;
 public interface IReportingService

@@ -1,10 +1,10 @@
 ﻿using Domain.Common;
 
-namespace Domain.Entities;
+namespace Domain.Entities.WareHouseAggregate;
 
 public class Warehouse : BaseEntity<int>
 {
-    public string Name {  get; private set; }
+    public string Name { get; private set; }
     private List<WarehouseItem> _items = new List<WarehouseItem>();
     public IReadOnlyCollection<WarehouseItem> Items => _items.AsReadOnly();
     public int TotalItems => _items.Sum(i => i.Quantity);

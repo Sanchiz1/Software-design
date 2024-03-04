@@ -1,10 +1,13 @@
-﻿namespace Domain.Entities;
-public class WarehouseItem
+﻿using Domain.Common;
+using Domain.Entities.ProductAggregate;
+
+namespace Domain.Entities.WareHouseAggregate;
+public class WarehouseItem : BaseEntity<int>
 {
     public int ProductId { get; private set; }
+    public Product? Product { get; private set; }
     public string MeasurementUnits { get; private set; }
     public int Quantity { get; private set; }
-    public Product? Product { get; private set; }
 
     public WarehouseItem(int productId, int quantity, string measurementUnits)
     {
@@ -28,7 +31,7 @@ public class WarehouseItem
 
     public void SetQuantity(int quantity)
     {
-        if(quantity < 0)
+        if (quantity < 0)
             throw new ArgumentOutOfRangeException(nameof(quantity), quantity, "Product quantity must be 0 or more.");
 
         Quantity = quantity;

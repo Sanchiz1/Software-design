@@ -1,4 +1,7 @@
 ﻿using Domain.Entities;
+using Domain.Entities.ProductAggregate;
+using Domain.Entities.WareHouseAggregate;
+using Domain.Interfaces;
 using Domain.Services;
 using Domain.ValueObjects;
 
@@ -40,29 +43,29 @@ internal class Program
         };
 
         var _reportingService = new ReportingService();
-        var _warehouseService = new WarehouseService(warehouse, new ReportingService());
+        IWarehouseService _warehouseService = new WarehouseService(new ReportingService());
 
-        _warehouseService.RemoveProduct(1, 1)
+        _warehouseService.RemoveProduct(warehouse, 1, 1)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
-        _warehouseService.AddProduct(1, "packages", 5)
+        _warehouseService.AddProduct(warehouse, 1, "packages", 5)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
-        _warehouseService.AddProduct(1, "packages", 5)
+        _warehouseService.AddProduct(warehouse, 1, "packages", 5)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
         await _reportingService.ReportInventory(warehouse);
 
-        _warehouseService.RemoveProduct(1, 11)
+        _warehouseService.RemoveProduct(warehouse, 1, 11)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
-        _warehouseService.RemoveProduct(1, 3)
+        _warehouseService.RemoveProduct(warehouse, 1, 3)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
-        _warehouseService.AddProduct(2, "kgs", 5)
+        _warehouseService.AddProduct(warehouse, 2, "kgs", 5)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
-        _warehouseService.AddProduct(2, "kgs", 5)
+        _warehouseService.AddProduct(warehouse, 2, "kgs", 5)
             .OnFail(ex => Console.WriteLine(ex.Message));
 
         await _reportingService.ReportInventory(warehouse);
