@@ -72,7 +72,9 @@ public class OrderService : IOrderService
 
         foreach (var item in order.Items)
         {
-            _warehouseService.RemoveProduct(warehouse, item.ProductId, item.Quantity);
+            var res = _warehouseService.RemoveProduct(warehouse, item.ProductId, item.Quantity);
+
+            if (res.IsFaulted) return res.Exception;
         }
 
         order.Accept();
