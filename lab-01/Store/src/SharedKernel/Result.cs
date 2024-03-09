@@ -8,9 +8,9 @@ public interface IResult
 
 public readonly struct Result<A> : IResult
 {
-    public readonly ResultState State;
-    public readonly A Value;
-    public readonly Exception exception;
+    internal readonly ResultState State;
+    internal readonly A Value;
+    internal readonly Exception exception;
     public Exception Exception => this.exception ?? new Exception("No exception was provided");
 
     public Result(A value)

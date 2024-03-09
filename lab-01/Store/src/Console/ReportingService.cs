@@ -4,14 +4,14 @@ using Domain.Interfaces;
 namespace ConsoleApp;
 public class ReportingService : IReportingService
 {
-    public async Task ReportIncome(int warehouseId, int productId, int quantity)
+    public async Task ReportIncome(int warehouseId, int productId, int quantity, string measurementUnits)
     {
-        Console.WriteLine($"\nReport: Incoming product {productId} to the warehouse {warehouseId}. Quantity - {quantity}\n");
+        Console.WriteLine($"\nReport: Incoming product {productId} to the warehouse {warehouseId}. Quantity - {quantity} {measurementUnits}\n");
     }
 
-    public async Task ReportShipment(int warehouseId, int productId, int quantity)
+    public async Task ReportShipment(int warehouseId, int productId, int quantity, string measurementUnits)
     {
-        Console.WriteLine($"\nReport: Shipping product {productId} from the warehouse {warehouseId}. Quantity - {quantity}\n");
+        Console.WriteLine($"\nReport: Shipping product {productId} from the warehouse {warehouseId}. Quantity - {quantity} {measurementUnits}\n");
     }
 
     public async Task ReportInventory(Warehouse warehouse)

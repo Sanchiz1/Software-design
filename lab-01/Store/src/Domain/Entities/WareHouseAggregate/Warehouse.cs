@@ -1,13 +1,17 @@
 ﻿using Domain.Common;
+using Domain.Entities.OrderAggregate;
+using Domain.Entities.ProductAggregate;
 
 namespace Domain.Entities.WareHouseAggregate;
 
 public class Warehouse : BaseEntity<int>
 {
     public string Name { get; private set; }
-    private List<WarehouseItem> _items = new List<WarehouseItem>();
+
+    private readonly List<WarehouseItem> _items = new List<WarehouseItem>();
     public IReadOnlyCollection<WarehouseItem> Items => _items.AsReadOnly();
-    public int TotalItems => _items.Sum(i => i.Quantity);
+    public int TotalItems => Items.Sum(i => i.Quantity);
+
 
     public Warehouse(string name)
     {
@@ -19,14 +23,32 @@ public class Warehouse : BaseEntity<int>
         Name = name;
     }
 
-    public void AddItem(WarehouseItem item)
+    public void AddItem(int productId, string measurementUnits, int quantity = 1)
     {
-        _items.Add(item);
+        var Item = _items.FirstOrDefault(i => i.ProductId == productId);
+
+        if (Item == null)
+        {
+            _items.Add(new WarehouseItem(productId, quantity, measurementUnits));
+
+            return;
+        }
+
+        Item.SetQuantity(Item.Quantity + quantity);
     }
 
-    public void RemoveItem(WarehouseItem item)
+    public void RemoveItem(int productId, int quantity = 1)
     {
-        _items.Remove(item);
+        var Item = _items.FirstOrDefault(i => i.ProductId == productId);
+
+        if (Item == null || Item.Quantity < quantity)
+        {
+            throw new ArgumentException($"Warehouse does not have {quantity} products {productId}.");
+        }
+
+        Item.SetQuantity(Item.Quantity - quantity);
+
+        RemoveEmptyItems();
     }
 
     public void RemoveEmptyItems()

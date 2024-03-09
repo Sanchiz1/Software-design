@@ -19,30 +19,21 @@ public class OrderItem
 
     public OrderItem(int productId, Money price, int quantity = 1, int discount = 0)
     {
-        if (!price.IsPositive())
-            throw new ArgumentOutOfRangeException(nameof(price), price, "Product price must be between more than 0.");
-
         if (discount < 0 || discount > 99)
             throw new ArgumentOutOfRangeException(nameof(discount), discount, "Product discount must be between 0 and 99.");
 
         ProductId = productId;
         Price = price;
         Discount = discount;
-        Quantity = quantity;
+        SetQuantity(quantity);
     }
 
     public OrderItem(Product product, int quantity = 1)
     {
-        if (!product.Price.IsPositive())
-            throw new ArgumentOutOfRangeException(nameof(product.Price), product.Price, "Product price must be between more than 0.");
-
-        if (product.Discount < 0 || product.Discount > 99)
-            throw new ArgumentOutOfRangeException(nameof(product.Discount), product.Discount, "Product discount must be between 0 and 99.");
-
         ProductId = product.Id;
         Price = product.Price;
         Discount = product.Discount;
-        Quantity = quantity;
+        SetQuantity(quantity);
     }
 
     public void SetQuantity(int quantity)

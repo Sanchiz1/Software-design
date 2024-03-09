@@ -16,20 +16,9 @@ public class WarehouseService : IWarehouseService
 
     public Result<Warehouse> AddProduct(Warehouse warehouse, int productId, string measurementUnits, int quantity = 1)
     {
-        if (!warehouse.Items.Any(i => i.ProductId == productId && i.MeasurementUnits == measurementUnits))
-        {
-            warehouse.AddItem(new WarehouseItem(productId, quantity, measurementUnits));
+        warehouse.AddItem(productId, measurementUnits, quantity);
 
-            _reportingService.ReportIncome(warehouse.Id, productId, quantity);
-
-            return warehouse;
-        }
-
-        var existingItem = warehouse.Items.First(i => i.ProductId == productId);
-
-        existingItem.SetQuantity(existingItem.Quantity + quantity);
-
-        _reportingService.ReportIncome(warehouse.Id, productId, quantity);
+        _reportingService.ReportIncome(warehouse.Id, productId, quantity, measurementUnits);
 
         return warehouse;
     }
@@ -44,9 +33,9 @@ public class WarehouseService : IWarehouseService
         if (item.Quantity < quantity) 
             return new ArgumentException($"Only {item.Quantity} products in the warehouse, trying to remove {quantity}.");
 
-        item.SetQuantity(item.Quantity - quantity);
+        warehouse.RemoveItem(productId, quantity);
 
-        warehouse.RemoveEmptyItems();
+        _reportingService.ReportIncome(warehouse.Id, productId, quantity, item.MeasurementUnits);
 
         return warehouse;
     }

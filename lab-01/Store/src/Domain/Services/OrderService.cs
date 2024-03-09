@@ -25,16 +25,10 @@ public class OrderService : IOrderService
         if (order.Accepted)
             return new ArgumentException("Cannot edit accepted order.");
 
-        if (!order.Items.Any(i => i.ProductId == Product.Id))
-        {
-            order.AddItem(new OrderItem(Product, quantity));
+        if (order.IsDifferentCurrency(Product.Price.CurrencyCode))
+            throw new ArgumentException("Cannot order products with prices in different currencies.");
 
-            return order;
-        }
-
-        var existingItem = order.Items.First(i => i.ProductId == Product.Id);
-
-        existingItem.SetQuantity(existingItem.Quantity + quantity);
+        order.AddItem(Product, quantity);
 
         return order;
     }
@@ -52,9 +46,7 @@ public class OrderService : IOrderService
         if (item.Quantity < quantity)
             return new ArgumentException($"Only {item.Quantity} products in the order, trying to remove {quantity}.");
 
-        item.SetQuantity(item.Quantity - quantity);
-
-        order.RemoveEmptyItems();
+        order.RemoveItem(productId, quantity);
 
         return order;
     }
@@ -67,14 +59,14 @@ public class OrderService : IOrderService
         foreach(var item in order.Items)
         {
             if(!warehouse.Items.Any(i => i.ProductId == item.ProductId && i.Quantity >= item.Quantity))
-                return new NotFoundException($"Not enough {item.ProductId} in the warehouse.");
+                return new NotFoundException($"Not enough product {item.ProductId} in the warehouse {warehouse.Id}.");
         }
 
         foreach (var item in order.Items)
         {
             var res = _warehouseService.RemoveProduct(warehouse, item.ProductId, item.Quantity);
 
-            if (res.IsFaulted) return res.Exception;
+            if (res.IsFaulted) return res.IfSuccess(new Exception("Failed to remove product from warehouse"));
         }
 
         order.Accept();

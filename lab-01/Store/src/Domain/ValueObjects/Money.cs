@@ -10,36 +10,36 @@ public class Money : ValueObject
 
     private Money(int centAmount, string currencyCode)
     {
-        CentAmount = centAmount;
+        SetAmount(centAmount);
         CurrencyCode = currencyCode;
     }
 
     private Money(decimal amount, string currencyCode)
     {
-        CentAmount = (int)(amount * 100);
+        SetAmount((int)(amount * 100));
         CurrencyCode = currencyCode;
     }
 
-    public bool IsPositive() =>
-        CentAmount > 0;
-
-    public bool IsNegative() =>
-        CentAmount < 0;
-
     public void AddAmount(decimal amount) =>
-        CentAmount += (int)(amount * 100);
+        SetAmount(CentAmount + (int)(amount * 100));
 
     public void AddAmountFromCents(int centAmount) =>
-        CentAmount += centAmount;
+        SetAmount(CentAmount + centAmount);
 
     public void UpdateAmount(decimal amount) =>
-        CentAmount = (int)(amount * 100);
+        SetAmount((int)(amount * 100));
 
     public void UpdateAmountInCents(int centAmount) =>
-        CentAmount = centAmount;
+        SetAmount(centAmount);
 
     public void UpdateCurrencyCode(string currencyCode) =>
         CurrencyCode = currencyCode;
+
+    private void SetAmount(int amount)
+    {
+        ValidateAmount(amount);
+        CentAmount = amount;
+    }
 
     public override string ToString()
     {
@@ -50,6 +50,12 @@ public class Money : ValueObject
     {
         yield return CentAmount;
         yield return CurrencyCode;
+    }
+
+    public static void ValidateAmount(int amount)
+    {
+        if(amount < 0)
+            throw new ArgumentOutOfRangeException(nameof(amount), amount, "Amount cannot be negative.");
     }
 
     public static Money CreateMoneyFromCents(int centAmount, string currencyCode) =>
