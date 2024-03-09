@@ -127,13 +127,17 @@ internal class Program
 
         Console.WriteLine(order);
 
-        _orderService.AddProduct(order, ApplesProduct, 11)
-            .OnFail(ex => Console.WriteLine(ex.Message));
+        var resMessage = _orderService.AddProduct(order, ApplesProduct, 11).Match<string>(
+            res => res.ToString(),
+            ex => ex.Message);
 
-        Console.WriteLine(order);
+        Console.WriteLine(resMessage);
 
-        _orderService.AcceptOrder(order, warehouse)
-            .OnFail(ex => Console.WriteLine(ex.Message));
+        resMessage = _orderService.AcceptOrder(order, warehouse).Match<string>(
+            res => res.ToString(),
+            ex => ex.Message);
+
+        Console.WriteLine(resMessage);
 
         _orderService.SetProductQuantity(order, ApplesProduct.Id, 10)
             .OnFail(ex => Console.WriteLine(ex.Message));

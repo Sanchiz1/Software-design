@@ -10,32 +10,32 @@ public class Money : ValueObject
 
     private Money(int centAmount, string currencyCode)
     {
-        SetAmount(centAmount);
+        SetCentAmount(centAmount);
         CurrencyCode = currencyCode;
     }
 
     private Money(decimal amount, string currencyCode)
     {
-        SetAmount((int)(amount * 100));
+        SetCentAmount((int)(amount * 100));
         CurrencyCode = currencyCode;
     }
 
     public void AddAmount(decimal amount) =>
-        SetAmount(CentAmount + (int)(amount * 100));
+        SetCentAmount(CentAmount + (int)(amount * 100));
 
     public void AddAmountFromCents(int centAmount) =>
-        SetAmount(CentAmount + centAmount);
+        SetCentAmount(CentAmount + centAmount);
 
     public void UpdateAmount(decimal amount) =>
-        SetAmount((int)(amount * 100));
+        SetCentAmount((int)(amount * 100));
 
     public void UpdateAmountInCents(int centAmount) =>
-        SetAmount(centAmount);
+        SetCentAmount(centAmount);
 
     public void UpdateCurrencyCode(string currencyCode) =>
         CurrencyCode = currencyCode;
 
-    private void SetAmount(int amount)
+    private void SetCentAmount(int amount)
     {
         ValidateAmount(amount);
         CentAmount = amount;
