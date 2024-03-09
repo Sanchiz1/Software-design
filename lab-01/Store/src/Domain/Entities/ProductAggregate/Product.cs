@@ -44,14 +44,14 @@ public class Product : BaseEntity<int>
         Discount = discount;
     }
 
+    public override string ToString()
+    {
+        return $"{Title} ({Manufacturer}) - {PriceWithDiscount} {Price.CurrencyCode}";
+    }
+
     private static void ValidateDiscount(int discount)
     {
         if (discount < 0 || discount > 99)
             throw new ArgumentOutOfRangeException(nameof(discount), discount, "Product discount must be between 0 and 99.");
-    }
-
-    public override string ToString()
-    {
-        return $"{Title} ({Manufacturer}) - {PriceWithDiscount} {Price.CurrencyCode}";
     }
 }

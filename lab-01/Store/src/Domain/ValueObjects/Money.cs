@@ -29,7 +29,7 @@ public class Money : ValueObject
     public void UpdateAmount(decimal amount) =>
         SetCentAmount((int)(amount * 100));
 
-    public void UpdateAmountInCents(int centAmount) =>
+    public void UpdateAmountFromCents(int centAmount) =>
         SetCentAmount(centAmount);
 
     public void UpdateCurrencyCode(string currencyCode) =>
