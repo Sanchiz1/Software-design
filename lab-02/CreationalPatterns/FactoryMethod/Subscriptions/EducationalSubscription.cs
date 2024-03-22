@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FactoryMethod.Subscriptions;
-internal class EducationalSubscription : Subscription
+public class EducationalSubscription : Subscription
 {
     public EducationalSubscription(int userId, decimal monthlyPayment, int minimumPeriodMonths, IReadOnlyCollection<string> channels)
         : base(userId, monthlyPayment, minimumPeriodMonths, channels, SubscriptionType.Educational)
