@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ChainOfResponsibility.ResetPasswordHadler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibility.ResetPasswordHadler;
+namespace ChainOfResponsibility.ResetPasswordHandler;
 public class AbstractPasswordResetHandler : IPasswordResetHandler
 {
     private IPasswordResetHandler _nextHandler;
@@ -13,7 +14,7 @@ public class AbstractPasswordResetHandler : IPasswordResetHandler
 
     public AbstractPasswordResetHandler(IPasswordResetManager passwordResetManager)
     {
-        this._passwordResetManager = passwordResetManager;
+        _passwordResetManager = passwordResetManager;
     }
 
     public IPasswordResetHandler SetNext(IPasswordResetHandler handler)

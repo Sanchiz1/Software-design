@@ -1,19 +1,20 @@
-﻿using System;
+﻿using ChainOfResponsibility.ResetPasswordHandler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChainOfResponsibility.ResetPasswordHadler;
-public class ResetUsingSecretQuestionHandler : AbstractPasswordResetHandler
+public class ResetUsingBackupEmailHandler : AbstractPasswordResetHandler
 {
-    public ResetUsingSecretQuestionHandler(IPasswordResetManager passwordResetManager) : base(passwordResetManager)
+    public ResetUsingBackupEmailHandler(IPasswordResetManager passwordResetManager) : base(passwordResetManager)
     {
     }
 
     public override string Handle(ResetPasswordRequest request)
     {
-        if (this._passwordResetManager.TryResetUsingSecretQuestion(request))
+        if (this._passwordResetManager.TryResetUsingBackupEmail(request))
         {
             return "Your password has been reset.";
         }
