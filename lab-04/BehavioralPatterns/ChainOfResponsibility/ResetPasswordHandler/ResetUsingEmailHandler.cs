@@ -1,11 +1,10 @@
-﻿using ChainOfResponsibility.ResetPasswordHandler;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibility.ResetPasswordHadler;
+namespace ChainOfResponsibility.ResetPasswordHandler;
 public class ResetUsingEmailHandler : AbstractPasswordResetHandler
 {
     public ResetUsingEmailHandler(IPasswordResetManager passwordResetManager) : base(passwordResetManager)
@@ -14,7 +13,7 @@ public class ResetUsingEmailHandler : AbstractPasswordResetHandler
 
     public override string Handle(ResetPasswordRequest request)
     {
-        if (this._passwordResetManager.TryResetUsingEmail(request))
+        if (_passwordResetManager.TryResetUsingEmail(request))
         {
             return "Your password has been reset.";
         }

@@ -5,7 +5,15 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChainOfResponsibility", "ChainOfResponsibility\ChainOfResponsibility.csproj", "{D222D705-230C-4911-AA88-A19D0A9CD83A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{164B264A-AEAF-4662-9188-C8CCC52A9C75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{164B264A-AEAF-4662-9188-C8CCC52A9C75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediator", "Mediator\Mediator.csproj", "{A45CF51C-30E3-47C1-8634-AE2B81EE2A74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Observer", "Observer\Observer.csproj", "{87AB62C0-E023-41E0-A072-3337B9F141A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strategy", "Strategy\Strategy.csproj", "{CE599E87-76EF-47C8-B249-C3673FC402C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento", "Memento\Memento.csproj", "{DBE02E1A-818F-43C7-8C1D-2306AB3B7D84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{164B264A-AEAF-4662-9188-C8CCC52A9C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164B264A-AEAF-4662-9188-C8CCC52A9C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164B264A-AEAF-4662-9188-C8CCC52A9C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45CF51C-30E3-47C1-8634-AE2B81EE2A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45CF51C-30E3-47C1-8634-AE2B81EE2A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45CF51C-30E3-47C1-8634-AE2B81EE2A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45CF51C-30E3-47C1-8634-AE2B81EE2A74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87AB62C0-E023-41E0-A072-3337B9F141A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87AB62C0-E023-41E0-A072-3337B9F141A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87AB62C0-E023-41E0-A072-3337B9F141A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87AB62C0-E023-41E0-A072-3337B9F141A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE599E87-76EF-47C8-B249-C3673FC402C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE599E87-76EF-47C8-B249-C3673FC402C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE599E87-76EF-47C8-B249-C3673FC402C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE599E87-76EF-47C8-B249-C3673FC402C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBE02E1A-818F-43C7-8C1D-2306AB3B7D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBE02E1A-818F-43C7-8C1D-2306AB3B7D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBE02E1A-818F-43C7-8C1D-2306AB3B7D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBE02E1A-818F-43C7-8C1D-2306AB3B7D84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,16 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Flyweight;
-public class NodeFactory
+public static class NodeFactory
 {
-    private List<NodeType> NodeTypes = new List<NodeType>();
+    private static List<NodeType> NodeTypes = new List<NodeType>();
 
-    public NodeFactory(params NodeType[] args)
-    {
-        this.NodeTypes = args.ToList();
-    }
-
-    public NodeType GetFlyweightType(string name, TagDisplayType displayType, TagClosingType closingType)
+    public static NodeType GetNodeType(string name, TagDisplayType displayType, TagClosingType closingType)
     {
         var type = NodeTypes.FirstOrDefault(node
             => node.Name == name

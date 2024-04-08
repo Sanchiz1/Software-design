@@ -70,10 +70,8 @@ public class HTMLLayout
 
         List<Node> nodes = new List<Node>();
 
-        NodeFactory nodeFactory = new NodeFactory();
-
-        var h1Type = nodeFactory.GetFlyweightType("h1", TagDisplayType.Row, TagClosingType.Double);
-        nodes.Add(new Node(lines[0].Trim(), h1Type));
+        var h1Type = NodeFactory.GetNodeType("h1", TagDisplayType.Row, TagClosingType.Double);
+        nodes.Add(new Node(lines[0].Trim(), h1Type, []));
 
         for (int i = 1; i < lines.Length; i++)
         {
@@ -89,8 +87,8 @@ public class HTMLLayout
                 elementTag = "blockquote";
             }
 
-            var nodeType = nodeFactory.GetFlyweightType(elementTag, TagDisplayType.Row, TagClosingType.Double);
-            nodes.Add(new Node(lines[i].Trim(), nodeType));
+            var nodeType = NodeFactory.GetNodeType(elementTag, TagDisplayType.Row, TagClosingType.Double);
+            nodes.Add(new Node(lines[i].Trim(), nodeType, []));
         }
 
         return nodes;

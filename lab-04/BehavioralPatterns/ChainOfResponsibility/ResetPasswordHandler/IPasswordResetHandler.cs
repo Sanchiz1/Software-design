@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibility.ResetPasswordHadler;
+namespace ChainOfResponsibility.ResetPasswordHandler;
 public interface IPasswordResetHandler
 {
     IPasswordResetHandler SetNext(IPasswordResetHandler handler);
