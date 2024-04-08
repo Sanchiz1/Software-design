@@ -15,6 +15,7 @@ public class TextHistory
     {
         _editor = editor;
     }
+
     public void Backup()
     {
         this._snapshots.Push(this._editor.CreateSnapshot());
@@ -37,5 +38,10 @@ public class TextHistory
         {
             this.Undo();
         }
+    }
+
+    public void ClearHistory()
+    {
+        this._snapshots.Clear();
     }
 }

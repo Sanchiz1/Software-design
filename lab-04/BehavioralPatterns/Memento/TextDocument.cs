@@ -22,7 +22,7 @@ public class TextDocument
 
     public void Restore()
     {
-        Editor.setText(Text);
-        Editor.setCursor(CursorX, CursorY);
+        Editor.SetText(Text);
+        Editor.SetCursor(CursorX, CursorY);
     }
 }
