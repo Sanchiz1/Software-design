@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Memento;
+﻿namespace Memento;
 public class TextHistory
 {
     private Stack<TextDocument> _snapshots = new Stack<TextDocument>();
@@ -29,15 +23,8 @@ public class TextHistory
         }
 
         var memento = this._snapshots.Pop();
-
-        try
-        {
-            this._editor.Restore(memento);
-        }
-        catch (Exception)
-        {
-            this.Undo();
-        }
+        
+        this._editor.Restore(memento);
     }
 
     public void ClearHistory()

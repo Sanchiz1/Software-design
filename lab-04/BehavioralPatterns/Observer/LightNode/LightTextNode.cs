@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Observer.LightNode;
+﻿namespace Observer.LightNode;
 public class LightTextNode : ILightNode
 {
     public string Text { get; } = default!;

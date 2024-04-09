@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Memento;
+﻿namespace Memento;
 public class EditorApplication
 {
     private TextEditor Editor;
@@ -44,7 +37,7 @@ public class EditorApplication
 
     private void CreateFile()
     {
-        Edit(null, []);
+        Edit(null, [string.Empty]);
     }
 
     private void EditFile()
@@ -85,6 +78,7 @@ public class EditorApplication
     private void Edit(string? fileName, List<string> defaultText)
     {
         Editor.SetText(defaultText);
+        Editor.SetCursor(0, 0);
         while (true)
         {
             Console.Clear();
@@ -98,10 +92,12 @@ public class EditorApplication
 
             if (info.Key == ConsoleKey.Backspace)
             {
+                History.Backup();
                 Editor.Delete();
             }
             else if (info.Key == ConsoleKey.Enter)
             {
+                History.Backup();
                 Editor.NewLine();
             }
             else if (info.Key == ConsoleKey.UpArrow)
@@ -124,8 +120,28 @@ public class EditorApplication
             {
                 SaveFile(fileName, Editor.Text.ToArray());
             }
+            else if (info.Key == ConsoleKey.Z && info.Modifiers == ConsoleModifiers.Control)
+            {
+                History.Undo();
+            }
+            else if (info.Key == ConsoleKey.X && info.Modifiers == ConsoleModifiers.Control)
+            {
+                Console.Clear();
+                Console.WriteLine("Do you want to save before exit? (y)");
+                
+                var choice = Console.ReadLine() ?? string.Empty;
+
+                if(choice == "y")
+                {
+                    SaveFile(fileName, Editor.Text.ToArray());
+                    return;
+                }
+
+                return;
+            }
             else
             {
+                History.Backup();
                 Editor.Type(info.KeyChar.ToString());
             }
         }
@@ -150,7 +166,6 @@ public class EditorApplication
                 }
             }
 
-
             try
             {
                 File.WriteAllLines(fileName, lines);
@@ -162,11 +177,9 @@ public class EditorApplication
                 continue;
             }
 
-
             Console.WriteLine("File {0} saved", fileName);
             Console.ReadKey();
             return;
         }
-
     }
 }

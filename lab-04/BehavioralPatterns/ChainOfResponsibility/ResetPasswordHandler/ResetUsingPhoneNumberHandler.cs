@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChainOfResponsibility.ResetPasswordHandler;
+﻿namespace ChainOfResponsibility.ResetPasswordHandler;
 public class ResetUsingPhoneNumberHandler : AbstractPasswordResetHandler
 {
     public ResetUsingPhoneNumberHandler(IPasswordResetManager passwordResetManager) : base(passwordResetManager)

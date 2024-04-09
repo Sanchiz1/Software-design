@@ -5,9 +5,6 @@ using Observer;
 using Observer.LightNode;
 using Strategy;
 using Strategy.ImageProvider;
-using System.Drawing;
-using System.IO;
-using System.Text;
 
 internal class Program
 {

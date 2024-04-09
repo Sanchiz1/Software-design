@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static System.Net.Mime.MediaTypeNames;
 
 namespace Memento;
 public class TextEditor
@@ -11,7 +7,8 @@ public class TextEditor
     public int CursorX {  get; set; }
     public int CursorY {  get; set; }
     public void SetText(List<string> text) {
-        Text = text;
+        //Text = text;
+        Text= new List<string>(text);
     }
     public void SetLineText(string text, int line) {
         Text[line] = text;
@@ -26,7 +23,7 @@ public class TextEditor
 
     public TextDocument CreateSnapshot()
     {
-        return new TextDocument(this, Text, CursorX, CursorY);
+        return new TextDocument(this, new List<string>(Text), CursorX, CursorY);
     }
 
 
