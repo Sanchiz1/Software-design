@@ -181,12 +181,13 @@ internal class Program
         Console.WriteLine("\nAdding two event listeners onClick and one event listener onHover to paragraph:\n");
 
         pElement.AddEventListener(
-            new LightNodeEventListener("onClick", (pElement) => Console.WriteLine("You clicked on paragraph!")));
-        pElement.AddEventListener(
-            new LightNodeEventListener("onClick", (pElement) => Console.WriteLine("Paragraph is clicked on!")));
+            new LightNodeEventListener("onClick", () => Console.WriteLine("You clicked on paragraph!")));
 
         pElement.AddEventListener(
-            new LightNodeEventListener("onHover", (pElement) => Console.WriteLine("Your mouse is over paragraph!")));
+            new LightNodeEventListener("onClick", () => Console.WriteLine("Paragraph is clicked on!")));
+
+        pElement.AddEventListener(
+            new LightNodeEventListener("onHover", () => Console.WriteLine("Your mouse is over paragraph!")));
 
         Console.WriteLine("\nClicking on the paragraph:\n");
 

@@ -71,7 +71,7 @@ public class LightElementNode : ILightNode
     {
         var listeners = EventListeners.Where(listener => listener.EventName == eventName).ToList();
 
-        listeners.ForEach(l => l.Update(this));
+        listeners.ForEach(l => l.Update());
     }
 }
 

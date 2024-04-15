@@ -3,18 +3,17 @@
 namespace Observer;
 public class LightNodeEventListener
 {
-    public delegate void LightNodeDelegate(ILightNode lightNode);
-    public LightNodeDelegate Action {  get; set; }
+    public Action Action {  get; set; }
     public string EventName { get; set; }
 
-    public LightNodeEventListener(string actionName, LightNodeDelegate lightNodeDelegate)
+    public LightNodeEventListener(string eventName, Action action)
     {
-        this.EventName = actionName;
-        this.Action = lightNodeDelegate;
+        this.EventName = eventName;
+        this.Action = action;
     }
 
-    public void Update(ILightNode subject)
+    public void Update()
     {
-        this.Action.Invoke(subject);
+        this.Action.Invoke();
     }
 }
