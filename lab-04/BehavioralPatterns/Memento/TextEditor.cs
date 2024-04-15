@@ -7,7 +7,6 @@ public class TextEditor
     public int CursorX {  get; set; }
     public int CursorY {  get; set; }
     public void SetText(List<string> text) {
-        //Text = text;
         Text= new List<string>(text);
     }
     public void SetLineText(string text, int line) {
@@ -23,7 +22,7 @@ public class TextEditor
 
     public TextDocument CreateSnapshot()
     {
-        return new TextDocument(this, new List<string>(Text), CursorX, CursorY);
+        return new TextDocument(new List<string>(Text), CursorX, CursorY);
     }
 
 

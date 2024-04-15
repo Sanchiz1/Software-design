@@ -118,7 +118,7 @@ public class EditorApplication
             }
             else if (info.Key == ConsoleKey.S && info.Modifiers == ConsoleModifiers.Control)
             {
-                SaveFile(fileName, Editor.Text.ToArray());
+                fileName = SaveFile(fileName, Editor.Text.ToArray());
             }
             else if (info.Key == ConsoleKey.Z && info.Modifiers == ConsoleModifiers.Control)
             {
@@ -147,22 +147,22 @@ public class EditorApplication
         }
     }
 
-    private void SaveFile(string? fileName, string[] lines)
+    private string? SaveFile(string? fileName, string[] lines)
     {
         while (true)
         {
             Console.Clear();
             if (fileName == null)
             {
-                Console.WriteLine("Enter file name to save (0 to exit): ");
+                Console.WriteLine("Enter file name to save(enter empty to cancel): ");
 
                 fileName = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(fileName))
                 {
-                    Console.WriteLine("Invalid filename");
+                    Console.WriteLine("Saving canceled");
                     Console.ReadKey();
-                    return;
+                    return fileName;
                 }
             }
 
@@ -179,7 +179,7 @@ public class EditorApplication
 
             Console.WriteLine("File {0} saved", fileName);
             Console.ReadKey();
-            return;
+            return fileName;
         }
     }
 }
