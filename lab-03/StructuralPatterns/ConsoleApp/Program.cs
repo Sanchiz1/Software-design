@@ -3,6 +3,7 @@ using Adapter.Loggers;
 using Bridge.Drawing;
 using Bridge.Shapes;
 using Composite;
+using Composite.Iterator;
 using Decorator.Characters;
 using Decorator.Items;
 using FlyWeight;
@@ -15,12 +16,13 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        DemonstrateIterator();/*
         DemonstrateAdapter();
         DemonstrateDecorator();
         DemonstrateBridge();
         DemonstrateProxy();
         DemonstrateComposite();
-        DemonstrateFlyweight();
+        DemonstrateFlyweight();*/
     }
 
     public static void DemonstrateAdapter()
@@ -290,6 +292,115 @@ internal class Program
         Console.WriteLine("Memory usage estimate: {0} bytes, rounded to {1} MB", memUsage, memUsageInMB);
 
         return memUsage;
+    }
+
+
+    public static void DemonstrateIterator()
+    {
+        Console.WriteLine("Iterator:");
+
+        LightElementNode div = new LightElementNode(
+            "div",
+            TagDisplayType.Column,
+            TagClosingType.Double,
+            [],
+            []
+        );
+
+        LightElementNode div1 = new LightElementNode(
+            "div1",
+            TagDisplayType.Column,
+            TagClosingType.Double,
+            [],
+            []
+        );
+
+        LightElementNode div2 = new LightElementNode(
+            "div2",
+            TagDisplayType.Column,
+            TagClosingType.Double,
+            [],
+            []
+        );
+
+        LightElementNode div1_1 = new LightElementNode(
+            "div1_1",
+            TagDisplayType.Column,
+            TagClosingType.Double,
+            [],
+            []
+        );
+
+        LightElementNode div1_2 = new LightElementNode(
+                    "div1_2",
+                    TagDisplayType.Column,
+                    TagClosingType.Double,
+                    [],
+                    []
+        );
+
+        LightElementNode div2_1 = new LightElementNode(
+            "div2_1",
+            TagDisplayType.Column,
+            TagClosingType.Double,
+            [],
+            []
+        );
+
+        LightElementNode div2_2 = new LightElementNode(
+                    "div2_2",
+                    TagDisplayType.Column,
+                    TagClosingType.Double,
+                    [],
+                    []
+        );
+
+        div.AddChildElement(
+            div1
+                .AddChildElement(div1_1)
+                .AddChildElement(div1_2)
+        ).AddChildElement(
+            div2
+                .AddChildElement(div2_1)
+                .AddChildElement(div2_2)
+        );
+
+        Console.WriteLine(div.GetOuterHTML());
+
+        Console.WriteLine("\n\n\nDepth:");
+
+        var aggregate = new LightNodeAggregate([div], LightNodeAggregate.IterationType.Depth);
+
+        foreach (var el in aggregate)
+        {
+            if (el is LightElementNode element)
+            {
+                Console.WriteLine(element.Name);
+            }
+            if (el is LightTextNode text)
+            {
+                Console.WriteLine(text);
+            }
+        }
+
+        Console.WriteLine("\n\n\nBreadth:");
+
+        var aggregate2 = new LightNodeAggregate([div], LightNodeAggregate.IterationType.Breadth);
+
+        foreach (var el in aggregate2)
+        {
+            if (el is LightElementNode element)
+            {
+                Console.WriteLine(element.Name);
+            }
+            if (el is LightTextNode text)
+            {
+                Console.WriteLine(text);
+            }
+        }
+
+
+        Console.WriteLine("-------------------------------------\n\n");
     }
 }
 
