@@ -48,7 +48,8 @@ public class LightNodeDepthIterator : IEnumerator<ILightNode>
     {
         position = 0;
 
-        LightNodes.Clear();
+        LightNodes.Clear(); 
+        LightNodes = _lightNodeAggregate.LightNodes;
     }
 
     public void Dispose()

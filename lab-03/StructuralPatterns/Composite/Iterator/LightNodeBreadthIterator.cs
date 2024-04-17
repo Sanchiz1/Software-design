@@ -40,6 +40,7 @@ public class LightNodeBreadthIterator : IEnumerator<ILightNode>
         position = 0;
 
         LightNodes.Clear();
+        LightNodes = _lightNodeAggregate.LightNodes;
     }
 
     public void Dispose()
