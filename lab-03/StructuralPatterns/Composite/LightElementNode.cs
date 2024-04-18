@@ -1,58 +1,58 @@
 ﻿using Composite;
 using Composite.State;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Composite;
-public class LightElementNode : ILightNode
+public abstract class LightElementNode : ILightNode
 {
     public string Name { get; } = default!;
     public TagDisplayType DisplayType { get; }
-    public TagClosingType ClosingType { get; }
     public List<string> Classes { get; } = new List<string>();
-    public List<ILightNode> Children { get; } = new List<ILightNode>();
     public List<LightNodeEventListener> EventListeners { get; } = new List<LightNodeEventListener>();
-    private RenderState _renderState;
 
 
     public LightElementNode(
         string name,
         TagDisplayType displayType,
-        TagClosingType closingType,
-        List<string> classes,
-        List<ILightNode> children)
+        List<string> classes)
     {
-        if (closingType == TagClosingType.Single && children.Count > 0)
-            throw new ArgumentException("Cannot create self-closing tag with children");
-
         Name = name;
         DisplayType = displayType;
-        ClosingType = closingType;
         Classes = classes;
-        Children = children;
-        _renderState = new VisibleChildrenState(this);
     }
 
-    public void ChangeState(RenderState state)
-    {
-        _renderState = state;
-    }
 
-    public LightElementNode AddChildElement(ILightNode node)
-    {
-        Children.Add(node);
 
-        return this;
-    }
-
+    #region Template method
     public string GetOuterHTML(int depth = 0)
     {
-        return _renderState.GetOuterHTML(depth);
+        return $"{GetOpeningPart()}{GetInnerHTML(depth + 1)}{GetTabString(depth)}{GetClosingPart()}";
     }
 
-    public string GetInnerHTML(int depth = 0)
+    protected string GetClassesPart()
+        => Classes.Count() > 0 ? $" class=\"{string.Join(' ', Classes)}\"" : string.Empty;
+
+    public string GetTabString(int depth)
+        => DisplayType == TagDisplayType.Column
+        ? "\n" + string.Concat(Enumerable.Repeat("  ", depth))
+        : string.Empty;
+
+    //Mandatory
+    protected abstract string GetOpeningPart();
+
+    //Mandatory
+    protected abstract string GetClosingPart();
+
+    //Hook
+    public virtual string GetInnerHTML(int depth = 0)
     {
-        return _renderState.GetInnerHTML(depth);
+        return string.Empty;
     }
+    #endregion
+
+
+
 
     public void AddEventListener(LightNodeEventListener eventListener)
     {
@@ -71,10 +71,4 @@ public enum TagDisplayType
 {
     Row,
     Column,
-}
-
-public enum TagClosingType
-{
-    Single,
-    Double
 }

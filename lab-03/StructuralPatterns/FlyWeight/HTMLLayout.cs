@@ -1,4 +1,5 @@
 ﻿using Composite;
+using Composite.TemplateMethod;
 using Flyweight;
 using System;
 using System.Collections;
@@ -21,20 +22,18 @@ public class HTMLLayout
 
     public ILightNode GetLightNodeFromLayout()
     {
-        LightElementNode parentElement = new LightElementNode(
+        PairedElementNode parentElement = new PairedElementNode(
            string.Empty,
            TagDisplayType.Column,
-           TagClosingType.Double,
            [],
            []
         );
 
         var lines = this.GetLines;
 
-        parentElement.AddChildElement(new LightElementNode(
+        parentElement.AddChildElement(new PairedElementNode(
             "h1",
             TagDisplayType.Row,
-            TagClosingType.Double,
             [],
             [new LightTextNode(lines[0].Trim())]
         ));
@@ -53,10 +52,9 @@ public class HTMLLayout
                 elementTag = "blockquote";
             }
 
-            parentElement.AddChildElement(new LightElementNode(
+            parentElement.AddChildElement(new PairedElementNode(
                 elementTag,
                 TagDisplayType.Row,
-                TagClosingType.Double,
                 [],
                 [new LightTextNode(lines[i].Trim())]
             ));

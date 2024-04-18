@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Composite.State;
+using Composite.TemplateMethod;
 
 namespace ConsoleApp;
 internal static class DemonstrateState
@@ -15,58 +16,51 @@ internal static class DemonstrateState
     {
         Console.WriteLine("State:");
 
-        LightElementNode pElement = new LightElementNode(
+        PairedElementNode pElement = new PairedElementNode(
             "p",
             TagDisplayType.Row,
-            TagClosingType.Double,
             ["paragraph"],
             [new LightTextNode("This is paragraph text.")]
         );
 
-        LightElementNode divElement = new LightElementNode(
+        PairedElementNode divElement = new PairedElementNode(
             "div",
             TagDisplayType.Column,
-            TagClosingType.Double,
             ["container", "box"],
             [new LightTextNode("This is container text.")]
         );
 
-        LightElementNode ulElement = new LightElementNode(
+        PairedElementNode ulElement = new PairedElementNode(
                 "ul",
                 TagDisplayType.Column,
-                TagClosingType.Double,
                 [],
                 []
             );
 
-        LightElementNode liElement1 = new LightElementNode(
+        PairedElementNode liElement1 = new PairedElementNode(
                 "li",
                 TagDisplayType.Row,
-                TagClosingType.Double,
                 ["paragraph"],
                 []
             );
 
-        LightElementNode liElement2 = new LightElementNode(
+        PairedElementNode liElement2 = new PairedElementNode(
                 "li",
                 TagDisplayType.Column,
-                TagClosingType.Double,
                 [],
                 []
             );
 
-        LightElementNode liElement3 = new LightElementNode(
+        PairedElementNode liElement3 = new PairedElementNode(
                 "li",
                 TagDisplayType.Row,
-                TagClosingType.Double,
                 [],
                 []
             );
 
-        LightElementNode imgElement = new LightElementNode(
+        PairedElementNode imgElement = new PairedElementNode(
                 "img",
                 TagDisplayType.Row,
-                TagClosingType.Single,
                 ["image"],
                 []
             );
@@ -81,7 +75,8 @@ internal static class DemonstrateState
                         .AddChildElement(imgElement))
         );
 
-        Console.WriteLine("\n\nVisible children state:\n");
+        liElement3.ChangeState(new HiddenChildrenState(liElement3));
+        Console.WriteLine("\n\nVisible children state for ul:\n");
         Console.WriteLine(divElement.GetOuterHTML());
 
         ulElement.ChangeState(new HiddenChildrenState(ulElement));

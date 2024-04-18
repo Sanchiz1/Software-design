@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.TemplateMethod;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ public class LightNodeBreadthIterator : IEnumerator<ILightNode>
     {
         if (LightNodes.Count < 1) return false;
 
-        if (Current is LightElementNode lightNode)
+        if (Current is PairedElementNode lightNode)
         {
             foreach (var item in lightNode.Children)
             {

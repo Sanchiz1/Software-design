@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.TemplateMethod;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 namespace Composite.Command.ChildCommand;
 public class AddTextCommand : ICommand
 {
-    private readonly LightElementNode _lightElementNode;
+    private readonly PairedElementNode _lightElementNode;
     private readonly string _text;
     private LightTextNode _backup;
 
-    public AddTextCommand(LightElementNode lightElementNode, string text)
+    public AddTextCommand(PairedElementNode lightElementNode, string text)
     {
         _lightElementNode = lightElementNode;
         _text = text;
