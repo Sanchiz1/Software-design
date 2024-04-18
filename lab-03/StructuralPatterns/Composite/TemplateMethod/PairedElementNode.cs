@@ -1,4 +1,5 @@
 ﻿using Composite.State;
+using Composite.Visitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,10 @@ public class PairedElementNode : LightElementNode
     protected override string GetClosingPart()
     {
         return $"</{Name}>";
+    }
+
+    public override void Accept(ILightNodeVisitor visitor)
+    {
+        visitor.VisitPairedElementNode(this);
     }
 }
