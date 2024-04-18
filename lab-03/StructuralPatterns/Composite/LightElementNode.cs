@@ -1,4 +1,5 @@
 ﻿using Composite;
+using Composite.State;
 using System.Text;
 
 namespace Composite;
@@ -10,11 +11,8 @@ public class LightElementNode : ILightNode
     public List<string> Classes { get; } = new List<string>();
     public List<ILightNode> Children { get; } = new List<ILightNode>();
     public List<LightNodeEventListener> EventListeners { get; } = new List<LightNodeEventListener>();
+    private RenderState _renderState;
 
-    private string TabString(int depth)
-        => DisplayType == TagDisplayType.Column
-        ? "\n" + string.Concat(Enumerable.Repeat("  ", depth))
-        : string.Empty;
 
     public LightElementNode(
         string name,
@@ -31,6 +29,12 @@ public class LightElementNode : ILightNode
         ClosingType = closingType;
         Classes = classes;
         Children = children;
+        _renderState = new VisibleChildrenState(this);
+    }
+
+    public void ChangeState(RenderState state)
+    {
+        _renderState = state;
     }
 
     public LightElementNode AddChildElement(ILightNode node)
@@ -40,27 +44,14 @@ public class LightElementNode : ILightNode
         return this;
     }
 
-    protected virtual string ClassesPart
-        => Classes.Count() > 0 ? $" class=\"{string.Join(' ', Classes)}\"" : string.Empty;
-
-    protected virtual string OpeningPart
-        => ClosingType == TagClosingType.Single ? $"<{Name}{ClassesPart}" : $"<{Name}{ClassesPart}>";
-
-    protected virtual string ClosingPart
-        => ClosingType == TagClosingType.Single ? $"/>" : $"</{Name}>";
-
     public string GetOuterHTML(int depth = 0)
     {
-        return $"{OpeningPart}{GetInnerHTML(depth + 1)}{TabString(depth)}{ClosingPart}";
+        return _renderState.GetOuterHTML(depth);
     }
 
     public string GetInnerHTML(int depth = 0)
     {
-        StringBuilder innerHtml = new StringBuilder();
-        Children.ForEach(
-            node => innerHtml.Append(TabString(depth) + node.GetOuterHTML(depth)));
-
-        return innerHtml.ToString();
+        return _renderState.GetInnerHTML(depth);
     }
 
     public void AddEventListener(LightNodeEventListener eventListener)
