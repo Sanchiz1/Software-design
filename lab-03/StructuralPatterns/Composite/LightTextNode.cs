@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.Visitor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,5 +24,10 @@ public class LightTextNode : ILightNode
     {
         var depthTab = new string('\t', depth);
         return depthTab + this.Text;
+    }
+
+    public void Accept(ILightNodeVisitor visitor)
+    {
+        visitor.VisitLightTextNode(this);
     }
 }

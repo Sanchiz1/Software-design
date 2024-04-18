@@ -22,6 +22,7 @@ internal class Program
         DemonstrateCommand.Execute();
         DemonstrateState.Execute();
         DemonstrateTemplateMethod.Execute();
+        DemonstrateVisitor.Execute();
         /*
         DemonstrateAdapter();
         DemonstrateDecorator();

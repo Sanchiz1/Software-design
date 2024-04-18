@@ -1,5 +1,6 @@
 ﻿using Composite;
 using Composite.State;
+using Composite.Visitor;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -65,6 +66,8 @@ public abstract class LightElementNode : ILightNode
 
         listeners.ForEach(l => l.Update());
     }
+
+    public abstract void Accept(ILightNodeVisitor visitor);
 }
 
 public enum TagDisplayType
