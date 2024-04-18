@@ -1,20 +1,19 @@
-﻿using Composite.Iterator;
+﻿using Composite.Command.ChildCommand;
+using Composite.Command.Editor;
 using Composite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Composite.Command.Editor;
-using Composite.Command.ChildCommand;
+using Composite.State;
 
 namespace ConsoleApp;
-internal static class DemonstrateCommand
+internal static class DemonstrateState
 {
     public static void Execute()
     {
-
-        Console.WriteLine("Command:");
+        Console.WriteLine("State:");
 
         LightElementNode pElement = new LightElementNode(
             "p",
@@ -72,37 +71,28 @@ internal static class DemonstrateCommand
                 []
             );
 
-        var editor = new LightHTMLEditor();
+        divElement.AddChildElement(
+            ulElement
+                .AddChildElement(liElement1
+                        .AddChildElement(new LightTextNode("This is li text.")))
+                .AddChildElement(liElement2
+                        .AddChildElement(pElement))
+                .AddChildElement(liElement3
+                        .AddChildElement(imgElement))
+        );
 
-        var addChild1 = new AddChildCommand(divElement, ulElement);
-        var addChild2 = new AddChildCommand(ulElement, liElement1);
-        var addText = new AddTextCommand(liElement1, "This is li text.");
-        var addChild3 = new AddChildCommand(ulElement, liElement2);
-        var addChild4 = new AddChildCommand(liElement2, pElement);
-        var removeChild = new RemoveChildCommand(liElement2, pElement);
-
-        Console.WriteLine("\n\n\nExecuting building commands, result:\n");
-
-        editor.Execute(addChild1);
-        editor.Execute(addChild2);
-        editor.Execute(addChild3);
-        editor.Execute(addChild4);
-        editor.Execute(addText);
-
+        Console.WriteLine("\n\nVisible children state:\n");
         Console.WriteLine(divElement.GetOuterHTML());
 
-        Console.WriteLine("\n\n\nExecuting removing command(Remove p child from li), result:\n");
-        editor.Execute(removeChild);
+        ulElement.ChangeState(new HiddenChildrenState(ulElement));
+
+        Console.WriteLine("\n\nHidden children state for ul:\n");
         Console.WriteLine(divElement.GetOuterHTML());
 
-        Console.WriteLine("\n\n\nUndo once(Return p child to li), result:\n");
-        editor.Undo();
-        Console.WriteLine(divElement.GetOuterHTML());
+        ulElement.ChangeState(new VisibleChildrenState(ulElement));
 
-        Console.WriteLine("\n\n\nUndo twice(Remove text from li), result:\n");
-        editor.Undo();
+        Console.WriteLine("\n\nBack to visible children state for ul:\n");
         Console.WriteLine(divElement.GetOuterHTML());
-
 
         Console.WriteLine("-------------------------------------\n\n");
     }

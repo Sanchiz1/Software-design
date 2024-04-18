@@ -18,7 +18,9 @@ internal class Program
     private static void Main(string[] args)
     {
         DemonstrateIterator.Execute();
-        DemonstrateCommand.Execute();/*
+        DemonstrateIterator.Execute();
+        DemonstrateState.Execute();
+        /*
         DemonstrateAdapter();
         DemonstrateDecorator();
         DemonstrateBridge();
