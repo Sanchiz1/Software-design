@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Composite.TemplateMethod;
 
 namespace ConsoleApp;
 internal static class DemonstrateIterator
@@ -14,58 +15,51 @@ internal static class DemonstrateIterator
 
         Console.WriteLine("Iterator:");
 
-        LightElementNode div = new LightElementNode(
+        PairedElementNode div = new PairedElementNode(
             "div",
             TagDisplayType.Column,
-            TagClosingType.Double,
             [],
             []
         );
 
-        LightElementNode div1 = new LightElementNode(
+        PairedElementNode div1 = new PairedElementNode(
             "div1",
             TagDisplayType.Column,
-            TagClosingType.Double,
             [],
             []
         );
 
-        LightElementNode div2 = new LightElementNode(
+        PairedElementNode div2 = new PairedElementNode(
             "div2",
             TagDisplayType.Column,
-            TagClosingType.Double,
             [],
             []
         );
 
-        LightElementNode div1_1 = new LightElementNode(
+        PairedElementNode div1_1 = new PairedElementNode(
             "div1_1",
             TagDisplayType.Column,
-            TagClosingType.Double,
             [],
             []
         );
 
-        LightElementNode div1_2 = new LightElementNode(
+        PairedElementNode div1_2 = new PairedElementNode(
                     "div1_2",
                     TagDisplayType.Column,
-                    TagClosingType.Double,
                     [],
                     []
         );
 
-        LightElementNode div2_1 = new LightElementNode(
+        PairedElementNode div2_1 = new PairedElementNode(
             "div2_1",
             TagDisplayType.Column,
-            TagClosingType.Double,
             [],
             []
         );
 
-        LightElementNode div2_2 = new LightElementNode(
+        PairedElementNode div2_2 = new PairedElementNode(
                     "div2_2",
                     TagDisplayType.Column,
-                    TagClosingType.Double,
                     [],
                     []
         );

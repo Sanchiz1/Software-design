@@ -4,6 +4,7 @@ using Bridge.Drawing;
 using Bridge.Shapes;
 using Composite;
 using Composite.Iterator;
+using Composite.TemplateMethod;
 using ConsoleApp;
 using Decorator.Characters;
 using Decorator.Items;
@@ -18,8 +19,9 @@ internal class Program
     private static void Main(string[] args)
     {
         DemonstrateIterator.Execute();
-        DemonstrateIterator.Execute();
+        DemonstrateCommand.Execute();
         DemonstrateState.Execute();
+        DemonstrateTemplateMethod.Execute();
         /*
         DemonstrateAdapter();
         DemonstrateDecorator();
@@ -140,58 +142,51 @@ internal class Program
     {
         Console.WriteLine("Composite:");
 
-        LightElementNode pElement = new LightElementNode(
+        PairedElementNode pElement = new PairedElementNode(
             "p",
             TagDisplayType.Row,
-            TagClosingType.Double,
             ["paragraph"],
             [new LightTextNode("This is paragraph text.")]
         );
 
-        LightElementNode divElement = new LightElementNode(
+        PairedElementNode divElement = new PairedElementNode(
             "div",
             TagDisplayType.Column,
-            TagClosingType.Double,
             ["container", "box"],
             [new LightTextNode("This is container text.")]
         );
 
-        LightElementNode ulElement = new LightElementNode(
+        PairedElementNode ulElement = new PairedElementNode(
                 "ul",
                 TagDisplayType.Column,
-                TagClosingType.Double,
                 [],
                 []
             );
 
-        LightElementNode liElement1 = new LightElementNode(
+        PairedElementNode liElement1 = new PairedElementNode(
                 "li",
                 TagDisplayType.Row,
-                TagClosingType.Double,
                 ["paragraph"],
                 []
             );
 
-        LightElementNode liElement2 = new LightElementNode(
+        PairedElementNode liElement2 = new PairedElementNode(
                 "li",
                 TagDisplayType.Column,
-                TagClosingType.Double,
                 [],
                 []
             );
 
-        LightElementNode liElement3 = new LightElementNode(
+        PairedElementNode liElement3 = new PairedElementNode(
                 "li",
                 TagDisplayType.Row,
-                TagClosingType.Double,
                 [],
                 []
             );
 
-        LightElementNode imgElement = new LightElementNode(
+        PairedElementNode imgElement = new PairedElementNode(
                 "img",
                 TagDisplayType.Row,
-                TagClosingType.Single,
                 ["image"],
                 []
             );

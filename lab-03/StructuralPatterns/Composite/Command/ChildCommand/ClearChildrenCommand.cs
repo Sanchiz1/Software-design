@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.TemplateMethod;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 namespace Composite.Command.ChildCommand;
 public class ClearChildrenCommand : ICommand
 {
-    private readonly LightElementNode _lightElementNode;
+    private readonly PairedElementNode _lightElementNode;
     private List<ILightNode> _backup;
 
-    public ClearChildrenCommand(LightElementNode lightElementNode)
+    public ClearChildrenCommand(PairedElementNode lightElementNode)
     {
         _lightElementNode = lightElementNode;
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.TemplateMethod;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ public class LightNodeDepthIterator : IEnumerator<ILightNode>
     {
         if (LightNodes.Count < 1) return false;
 
-        if (Current is LightElementNode lightNode)
+        if (Current is PairedElementNode lightNode)
         {
             int index = position + 1;
             foreach (var item in lightNode.Children)

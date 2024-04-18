@@ -49,3 +49,9 @@ public class NodeType
         return $"{this.OpeningPart}{TextWithTabs(text)}{this.ClosingPart}";
     }
 }
+
+public enum TagClosingType
+{
+    Single,
+    Double
+}
